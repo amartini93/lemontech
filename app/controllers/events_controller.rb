@@ -40,9 +40,11 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    @event = Event.find(params[:id])
     @event.destroy
     redirect_to events_url, notice: 'Event was successfully destroyed.'
   end
+  
 
   private
 
@@ -55,7 +57,7 @@ class EventsController < ApplicationController
     end
 
     def check_creator
-      unless @event.users.include?(current_user) && @event.creator_id == current_user.id
+      unless @event.creator_id == current_user.id
         redirect_to events_path, alert: 'You do not have permission to perform this action.'
       end
     end

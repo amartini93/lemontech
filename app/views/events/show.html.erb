@@ -1,0 +1,27 @@
+<h1><%= @event.name %></h1>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @event.date %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @event.location %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @event.capacity %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %> |
+<% if @event.creator_id == current_user.id %>
+  <%= link_to "Destroy", @author, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<% end %>
