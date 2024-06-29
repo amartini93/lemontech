@@ -4,10 +4,14 @@ class EventsController < ApplicationController
   before_action :check_creator, only: [:edit, :update, :destroy]
 
   def index
-    @events = current_user.events
+    @created_events = current_user.created_events
+    @attended_events = current_user.attended_events.where.not(id: @created_events.pluck(:id))
+    @events = @created_events + @attended_events
   end
 
   def show
+    @event = Event.find(params[:id])
+    @attendees = @event.attendees
   end
 
   def new
@@ -42,8 +46,35 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    redirect_to events_url, notice: 'Event was successfully destroyed.'
+    redirect_to events_path, notice: 'Event was successfully destroyed.'
   end
+
+
+  # Custom action to add a user to the event
+  def add_user
+    @event = Event.find_by(id: params[:event_id])
+    @user = User.find_by(id: params[:user_id])
+  
+    puts "Event ID: #{params[:event_id]}"
+    puts "User ID: #{params[:user_id]}"
+    
+    unless @event && @user
+      flash[:alert] = 'Event or user not found.'
+      redirect_to events_path
+      return
+    end
+  
+    if @event.attendees.exclude?(@user)
+      @event.attendees << @user
+      flash[:notice] = 'User successfully added to the event.'
+    else
+      flash[:alert] = 'User is already registered for this event.'
+    end
+  
+    redirect_to event_path(@event)
+  end
+  
+  
   
 
   private
