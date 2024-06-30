@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+gh repo clone amartini93/lemontech
+cd lemontech
 
-Things you may want to cover:
+sudo docker-compose build
+sudo docker-compose up
 
-* Ruby version
+(Could be needed. Test without first)
+sudo docker-compose run web bundle exec rails db:create
+sudo docker-compose run web bundle exec rails db:migrate
+sudo docker-compose run web bundle exec rails db:seed
 
-* System dependencies
+Test the ap at:
+http://localhost:3000
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Play with logging and registration.
+Play with Event creation and invitations (only even creators should be able to edit and delete events)
+Play with profile edition
+That should cover the CRUD and all the other requirements for the test
