@@ -1,0 +1,8 @@
+<h1>Profile</h1>
+
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Age:</strong> <%= @user.age %></p>
+<p><strong>Gender:</strong> <%= @user.gender %></p>
+<p><strong>Description:</strong> <%= @user.description %></p>
+
+<%= link_to 'Edit Profile', edit_user_path(@user) %>
