@@ -18,7 +18,7 @@ sudo docker-compose run web bundle exec rails db:migrate
 sudo docker-compose run web bundle exec rails db:seed
 ```
 
-Test the ap at:
+Test the app at:
 http://localhost:3000
 
 ```
